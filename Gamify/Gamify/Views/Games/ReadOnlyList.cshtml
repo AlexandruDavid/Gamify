@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Gamify.Models.Game>
+@{
+    ViewBag.Title = "Games";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Games</h2>
+
+<table id="games" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Games</th>
+            <th>Genre</th>
+        </tr>
+    </thead>
+    <tbody>
+        @*@foreach (var game in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(game.Name, "EditGame", "Games", new { id = game.Id }, null)</td>
+                    <td>@game.Genre.Name</td>
+                </tr>
+            }*@
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#games").DataTable({
+                ajax: {
+                    url: "/api/games",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                    },
+                    {
+                        data: "genre.name"
+                    }
+                ]
+            });
+        });
+    </script>
+}
